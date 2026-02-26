@@ -51,3 +51,12 @@ The host page sets `window.CookieConsentConfig` before loading the script. All c
 - `console.*` calls are stripped by Terser in production. Use them freely during development.
 - Privacy: always strip query parameters from URLs before logging (defense-in-depth on both client and server).
 - The `functional` consent category is always `true` and non-toggleable.
+- Default UI language is **Czech**. Hardcoded strings live in `src/ui/modal.ts`; category labels/descriptions are in `src/config.ts` defaults.
+- Default theme color is dark plum wine (`#6B1D3A`).
+- npm cache issue: the system npm cache has a permissions problem. Use `NPM_CONFIG_CACHE=/private/tmp/claude-501/npm-cache` prefix when running npm commands.
+
+## Status
+
+- Core consent library: **done** (banner, modal, consent mode, meta pixel proxy)
+- API server (`api/`): **written but not deployed** — Cloudflare Worker + D1, to be set up later
+- Not yet tested on a real site with GTM
