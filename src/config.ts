@@ -3,17 +3,17 @@ import type { CookieConsentConfig } from './types';
 const DEFAULTS: CookieConsentConfig = {
   consentVersion: '1.0',
   logEndpoint: '',
-  primaryColor: '#1a73e8',
+  primaryColor: '#6B1D3A',
   siteName: 'This website',
   cookiePolicyUrl: '/cookie-policy',
   categories: {
     analytics: {
-      label: 'Analytics',
-      description: 'These cookies help us understand how visitors interact with our website.',
+      label: 'Analytické',
+      description: 'Pomáhají nám pochopit, jak návštěvníci používají web.',
     },
     marketing: {
-      label: 'Marketing',
-      description: 'These cookies are used to deliver relevant ads and track campaign performance.',
+      label: 'Marketingové',
+      description: 'Slouží k zobrazování relevantních reklam a měření výkonu kampaní.',
     },
   },
 };

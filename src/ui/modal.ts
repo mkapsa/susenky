@@ -26,7 +26,7 @@ export function showModal(onSave: (choices: ConsentChoices) => void): void {
     class: 'cc-modal cc-slide-up',
     role: 'dialog',
     'aria-modal': 'true',
-    'aria-label': 'Cookie consent',
+    'aria-label': 'Souhlas s cookies',
   });
 
   // Logo
@@ -40,16 +40,16 @@ export function showModal(onSave: (choices: ConsentChoices) => void): void {
   const prefView = el('div', { class: 'cc-pref-view', style: 'display:none' });
 
   // --- Main view ---
-  mainView.appendChild(el('h2', { class: 'cc-title' }, 'We value your privacy'));
+  mainView.appendChild(el('h2', { class: 'cc-title' }, 'Na této stránce používáme sušenky \u{1F36A}'));
   const body = el('p', { class: 'cc-body' });
-  body.innerHTML = `${config.siteName} uses cookies to enhance your browsing experience, serve personalised content, and analyse traffic. Read our <a href="${encodeURI(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Cookie Policy</a>.`;
+  body.innerHTML = `Soubory cookie nám pomáhají zlepšovat vaši zkušenost s prohlížením, zobrazovat relevantní obsah a analyzovat návštěvnost. Sami si zvolíte, které kategorie povolíte. Více v našich <a href="${encodeURI(config.cookiePolicyUrl)}" target="_blank" rel="noopener">Zásadách používání cookies</a>.`;
   mainView.appendChild(body);
 
   const btnRow = el('div', { class: 'cc-btn-row' });
 
   const customizeBtn = el('button', { class: 'cc-btn-link', type: 'button' });
   customizeBtn.appendChild(gearIcon());
-  customizeBtn.appendChild(document.createTextNode(' Customize'));
+  customizeBtn.appendChild(document.createTextNode(' Nastavení'));
   customizeBtn.addEventListener('click', () => {
     mainView.style.display = 'none';
     prefView.style.display = '';
@@ -57,13 +57,13 @@ export function showModal(onSave: (choices: ConsentChoices) => void): void {
 
   const rightBtns = el('div', { class: 'cc-btn-row-right' });
 
-  const rejectBtn = el('button', { class: 'cc-btn cc-btn-outline', type: 'button' }, 'Reject');
+  const rejectBtn = el('button', { class: 'cc-btn cc-btn-outline', type: 'button' }, 'Odmítnout');
   rejectBtn.addEventListener('click', () => {
     hideModal();
     onSave({ functional: true, analytics: false, marketing: false });
   });
 
-  const acceptBtn = el('button', { class: 'cc-btn cc-btn-primary', type: 'button' }, 'Accept all');
+  const acceptBtn = el('button', { class: 'cc-btn cc-btn-primary', type: 'button' }, 'Přijmout vše');
   acceptBtn.addEventListener('click', () => {
     hideModal();
     onSave({ functional: true, analytics: true, marketing: true });
@@ -77,17 +77,17 @@ export function showModal(onSave: (choices: ConsentChoices) => void): void {
 
   // --- Preference view ---
   const backBtn = el('button', { class: 'cc-back-btn', type: 'button' });
-  backBtn.innerHTML = '&#8592; Back';
+  backBtn.innerHTML = '&#8592; Zpět';
   backBtn.addEventListener('click', () => {
     prefView.style.display = 'none';
     mainView.style.display = '';
   });
   prefView.appendChild(backBtn);
 
-  prefView.appendChild(el('h2', { class: 'cc-pref-title' }, 'Manage preferences'));
+  prefView.appendChild(el('h2', { class: 'cc-pref-title' }, 'Nastavení předvoleb'));
 
   // Functional (always on)
-  prefView.appendChild(buildCategory('Functional', 'Essential cookies required for the website to function.', true, true));
+  prefView.appendChild(buildCategory('Funkční', 'Nezbytné cookies pro správné fungování webu.', true, true));
 
   // Analytics toggle
   const analyticsToggle = buildCategory(config.categories.analytics.label, config.categories.analytics.description, false, false);
@@ -99,10 +99,17 @@ export function showModal(onSave: (choices: ConsentChoices) => void): void {
   const marketingInput = marketingToggle.querySelector('input')!;
   prefView.appendChild(marketingToggle);
 
-  // Save button
-  const saveRow = el('div', { class: 'cc-pref-save' });
-  const saveBtn = el('button', { class: 'cc-btn cc-btn-primary', type: 'button' }, 'Save preferences');
-  saveBtn.addEventListener('click', () => {
+  // Button row
+  const prefBtnRow = el('div', { class: 'cc-btn-row', style: 'margin-top: 20px' });
+
+  const prefRejectBtn = el('button', { class: 'cc-btn cc-btn-outline', type: 'button' }, 'Odmítnout vše');
+  prefRejectBtn.addEventListener('click', () => {
+    hideModal();
+    onSave({ functional: true, analytics: false, marketing: false });
+  });
+
+  const prefSaveBtn = el('button', { class: 'cc-btn cc-btn-outline', type: 'button' }, 'Uložit předvolby');
+  prefSaveBtn.addEventListener('click', () => {
     hideModal();
     onSave({
       functional: true,
@@ -110,8 +117,19 @@ export function showModal(onSave: (choices: ConsentChoices) => void): void {
       marketing: marketingInput.checked,
     });
   });
-  saveRow.appendChild(saveBtn);
-  prefView.appendChild(saveRow);
+
+  const prefAcceptBtn = el('button', { class: 'cc-btn cc-btn-primary', type: 'button' }, 'Přijmout vše');
+  prefAcceptBtn.addEventListener('click', () => {
+    hideModal();
+    onSave({ functional: true, analytics: true, marketing: true });
+  });
+
+  const prefRightBtns = el('div', { class: 'cc-btn-row-right' });
+  prefRightBtns.appendChild(prefRejectBtn);
+  prefRightBtns.appendChild(prefSaveBtn);
+  prefRightBtns.appendChild(prefAcceptBtn);
+  prefBtnRow.appendChild(prefRightBtns);
+  prefView.appendChild(prefBtnRow);
 
   modal.appendChild(mainView);
   modal.appendChild(prefView);

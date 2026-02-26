@@ -1,7 +1,7 @@
 export const CSS = `
 :root {
-  --cc-primary: #1a73e8;
-  --cc-primary-hover: #1565c0;
+  --cc-primary: #6B1D3A;
+  --cc-primary-hover: #56172E;
   --cc-bg: #ffffff;
   --cc-text: #333333;
   --cc-text-secondary: #666666;
@@ -24,11 +24,11 @@ export const CSS = `
 .cc-modal {
   background: var(--cc-bg);
   border-radius: var(--cc-radius);
-  max-width: 480px;
+  max-width: 680px;
   width: calc(100% - 32px);
   max-height: 90vh;
   overflow-y: auto;
-  padding: 28px;
+  padding: 24px 32px;
   box-sizing: border-box;
   font-family: var(--cc-font);
   color: var(--cc-text);
@@ -51,21 +51,21 @@ export const CSS = `
 .cc-divider {
   border: none;
   border-top: 1px solid var(--cc-border);
-  margin: 16px 0;
+  margin: 12px 0;
 }
 
 .cc-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   line-height: 1.3;
 }
 
 .cc-body {
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--cc-text-secondary);
-  margin: 0 0 20px;
+  margin: 0 0 14px;
 }
 
 .cc-body a {
@@ -354,7 +354,7 @@ export function injectStyles(primaryColor?: string): void {
 
   let css = CSS;
   if (primaryColor) {
-    css = css.replace(/#1a73e8/g, primaryColor);
+    css = css.replace(/#6B1D3A/g, primaryColor);
   }
 
   const style = document.createElement('style');
