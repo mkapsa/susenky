@@ -1,4 +1,4 @@
-# Susenky 🍪
+# Sušenky 🍪
 
 Self-hosted GDPR cookie consent library. Manages Google Consent Mode V2 (GA4, Google Ads) and Meta Pixel — deployed as a single script via GTM.
 
