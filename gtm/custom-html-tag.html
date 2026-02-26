@@ -1,0 +1,43 @@
+<!--
+  GTM Custom HTML Tag: Cookie Consent Init
+  Trigger: Consent Initialization - All Pages
+
+  Instructions:
+  1. Create a GTM Variable "Cookie Consent Config Variable" (Custom JavaScript)
+     that returns the config object below.
+  2. Create this tag as Custom HTML with trigger "Consent Initialization - All Pages".
+  3. Replace the <script src> URL with your CDN-hosted consent.min.js.
+-->
+
+<script>
+  window.CookieConsentConfig = {{Cookie Consent Config Variable}};
+</script>
+<script src="https://cdn.yoursite.com/consent.min.js" async="false"></script>
+
+<!--
+  Example GTM Variable (Custom JavaScript):
+
+  function() {
+    return {
+      consentVersion: "1.0",
+      logEndpoint: "https://consent-api.yoursite.com/consent",
+      primaryColor: "#1a73e8",
+      siteName: "Your Site Name",
+      cookiePolicyUrl: "https://yoursite.com/cookie-policy",
+      logoUrl: "https://yoursite.com/logo.svg",
+      categories: {
+        analytics: {
+          label: "Analytics",
+          description: "Help us understand how visitors interact with our website."
+        },
+        marketing: {
+          label: "Marketing",
+          description: "Used to deliver relevant ads and track campaign performance."
+        }
+      }
+    };
+  }
+
+  "Cookie Settings" link for any page:
+  <a href="#" onclick="window.CookieConsent.showPreferences(); return false;">Cookie Settings</a>
+-->

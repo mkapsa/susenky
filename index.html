@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Consent — Test Page</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 60px auto; padding: 0 16px; }
+    h1 { margin-bottom: 8px; }
+    pre { background: #f4f4f4; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
+    button { margin-top: 12px; padding: 8px 16px; cursor: pointer; }
+    hr { margin: 24px 0; }
+  </style>
+</head>
+<body>
+  <h1>Cookie Consent Test Page</h1>
+  <p>This page loads the consent library with a test config. Open your browser DevTools console to see what's happening.</p>
+
+  <hr />
+
+  <h2>Actions</h2>
+  <button onclick="window.CookieConsent.showPreferences()">Open Cookie Settings</button>
+  <button onclick="localStorage.removeItem('cookie_consent'); location.reload()">Clear Consent &amp; Reload</button>
+  <button onclick="document.getElementById('state').textContent = JSON.stringify(JSON.parse(localStorage.getItem('cookie_consent')||'null'), null, 2)">
+    Show Stored Consent
+  </button>
+  <button onclick="document.getElementById('dl').textContent = JSON.stringify(window.dataLayer, null, 2)">
+    Show dataLayer
+  </button>
+
+  <hr />
+
+  <h2>Stored Consent</h2>
+  <pre id="state">(click "Show Stored Consent")</pre>
+
+  <h2>dataLayer</h2>
+  <pre id="dl">(click "Show dataLayer")</pre>
+
+  <!-- 1. Set config BEFORE loading the script -->
+  <script>
+    window.CookieConsentConfig = {
+      consentVersion: "1.0",
+      logEndpoint: "",
+      primaryColor: "#1a73e8",
+      siteName: "Test Site",
+      cookiePolicyUrl: "https://example.com/cookies",
+      categories: {
+        analytics: {
+          label: "Analytics",
+          description: "Help us understand how visitors interact with our website."
+        },
+        marketing: {
+          label: "Marketing",
+          description: "Used to deliver relevant ads and track campaign performance."
+        }
+      }
+    };
+  </script>
+
+  <!-- 2. Load the consent library (Vite serves this from src/index.ts in dev mode) -->
+  <script type="module" src="/src/index.ts"></script>
+</body>
+</html>
